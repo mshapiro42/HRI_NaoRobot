@@ -38,10 +38,10 @@ def main(session):
                        
                        '''proposal: %who Would you like to be the main character in the story?\n
                        u1:(yes) ^gotoReactivate(info)
-                       u1:(no) Ok then, are you sitting comfortable good, then we will begin. $Pronoun=She $Name="Little Red Ridding Hood" ^gotoReactivate(start)\n'''
+                       u1:(no) Ok then, are you sitting comfortabley? Good, then we will begin. $Pronoun=She $Name="Little Red Ridding Hood" ^gotoReactivate(start)\n'''
                        
                        '''proposal: %info What name would you like me to call you in the story?\n
-                       u:({My name is} _~names) Ok $1 $Name=$1 ^goto(start)'''
+                       u:({My name is} _~names) Ok $1 $Name=$1 $Pronoun=you ^goto(start)'''
                        
            #Something is wrong with the below proposal            
                        '''proposal: %start ["$Name is $Name=="Little Red Ridding Hood"" "$Name, you are"] going to deliver supplies to ["your $Pronoun==You" "her $Pronoun==She"] grandmother in the woods. $Pronoun notice some pretty flowers and fruits.
@@ -49,8 +49,8 @@ def main(session):
                        u1:(Rest) Ok $Pronoun decides to rest ^gotoReactivate(startRest)
                        u1:(Continue) Ok $Pronoun decides to continue ^gotoReactivate(startContinue)'''
                        
-                       '''proposal: %start $Name you are going to deliver supplies to your grandmother in the woods. $Pronoun notice some pretty flowers and fruits. Do you rest to smell the flowers and have a snack, or continue along the path?\n
-                       u1:(Rest) Ok you decide to rest ^gotoReactivate(startRest)'''
+                       '''proposal: %start $Name, you are going to deliver supplies to your grandmother in the woods. $Pronoun notice some pretty flowers and fruits. Do you rest to smell the flowers and have a snack, or continue along the path?\n
+                       u1:(Rest) Ok, you decide to rest ^gotoReactivate(startRest)'''
                        
                        #1
                        '''proposal: %startRest As $Pronoun takes a rest, a wolf appears. ["Does she $Name=="Little Red Ridding Hood"" "Do you"] talk with the wolf or run away?\n
@@ -68,9 +68,21 @@ def main(session):
                        u1:(Wolf) ^gotoReactivate(talkWolf)
                        u1:(Alone) ^gotoReactivate(talkAlone)'''
                        
+                       #1-2
+                       '''proposal: %restRun $Pronoun try to continue to Grandma's house, but $Pronoun don't remember which way to go! Do $Pronoun take the path to the left or the right?\n
+                       u1:(Left) ^gotoReactivate(runLeft)
+                       u1:(Right) ^gotoReactivate(runRight)'''
+                       
                        #1-1-1
                        '''proposal: %talkWolf ["$Name goes $Name=="Little Red Ridding Hood"" "$Name, you go"] with the wolf to the old lady's house. The house turns out to be ["your $Pronoun==You" "her $Pronoun==She"] grandma's! It also turns out that the wolf, who introduces 
-                       himself as Mr. Lupin, is the local milk man! He deliver's grandma's milk and grandma invites both of them in for milk and cookies. The end. Did you enjoy the story?\n
+                       himself as Mr. Lupin, is the local milk man! He deliver's grandma's milk and grandma invites both of you in for milk and cookies. The end. Did you enjoy the story, $Name?\n
+                       u1:(yes) I'm glad! You helped make it an interesting story ^topicTagReactivate(Begin, Another)
+                       u1:(no) I'm sorry ^topicTagReactivate(Begin, Another)'''
+                   
+    
+                       #1-2-2
+                       '''proposal: %runRight $Name, $Pronoun take the right path, where $Pronoun end up by a beautiful lake! The water is blue, the sun is warm, and you're a little hungry from all the walking. You have a happy snack under a tree by the lake and take a nap.
+                       You had a good day, but Grandma never got the supplies she needed. Oh no! Did you like the story, $Name?
                        u1:(yes) I'm glad! You helped make it an interesting story ^topicTagReactivate(Begin, Another)
                        u1:(no) I'm sorry ^topicTagReactivate(Begin, Another)'''
                        )
